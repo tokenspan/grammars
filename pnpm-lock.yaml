@@ -98,7 +98,7 @@ importers:
         version: 5.5.4
       vite:
         specifier: 5.4.1
-        version: 5.4.1(@types/node@20.16.3)(sass@1.77.8)(terser@5.31.1)
+        version: 5.4.1(@types/node@20.16.3)(sass@1.78.0)(terser@5.31.1)
 
   chrome-extension:
     dependencies:
@@ -126,7 +126,7 @@ importers:
         version: link:../packages/vite-config
       '@laynezh/vite-plugin-lib-assets':
         specifier: ^0.5.23
-        version: 0.5.23(vite@5.4.1(@types/node@20.16.3)(sass@1.77.8)(terser@5.31.1))
+        version: 0.5.23(vite@5.4.1(@types/node@20.16.3)(sass@1.78.0)(terser@5.31.1))
       '@types/node':
         specifier: ^20.16.3
         version: 20.16.3
@@ -258,7 +258,7 @@ importers:
         version: link:../tsconfig
       '@vitejs/plugin-react-swc':
         specifier: ^3.6.0
-        version: 3.7.0(vite@5.4.1(@types/node@20.16.3)(sass@1.77.8)(terser@5.31.1))
+        version: 3.7.0(vite@5.4.1(@types/node@20.16.3)(sass@1.78.0)(terser@5.31.1))
       deepmerge:
         specifier: ^4.3.1
         version: 4.3.1
@@ -415,8 +415,8 @@ importers:
         specifier: ^6.0.1
         version: 6.0.1(jiti@1.21.6)(postcss@8.4.41)(tsx@4.16.2)(yaml@2.4.5)
       sass:
-        specifier: 1.77.8
-        version: 1.77.8
+        specifier: 1.78.0
+        version: 1.78.0
 
   pages/options:
     dependencies:
@@ -2696,8 +2696,8 @@ packages:
     resolution: {integrity: sha512-CdASjNJPvRa7roO6Ra/gLYBTzYzzPyyBXxIMdGW3USQLyjWEls2RgW5UBTXaQVp+OrpeCK3bLem8smtmheoRuw==}
     engines: {node: '>= 0.4'}
 
-  sass@1.77.8:
-    resolution: {integrity: sha512-4UHg6prsrycW20fqLGPShtEvo/WyHRVRHwOP4DzkUrObWoWI05QBSfzU71TVB7PFaL104TwNaHpjlWXAZbQiNQ==}
+  sass@1.78.0:
+    resolution: {integrity: sha512-AaIqGSrjo5lA2Yg7RvFZrlXDBCp3nV4XP73GrLGvdRWWwk+8H3l0SDvq/5bA4eF+0RFPLuWUk3E+P1U/YqnpsQ==}
     engines: {node: '>=14.0.0'}
     hasBin: true
 
@@ -3424,13 +3424,13 @@ snapshots:
       '@jridgewell/resolve-uri': 3.1.2
       '@jridgewell/sourcemap-codec': 1.4.15
 
-  '@laynezh/vite-plugin-lib-assets@0.5.23(vite@5.4.1(@types/node@20.16.3)(sass@1.77.8)(terser@5.31.1))':
+  '@laynezh/vite-plugin-lib-assets@0.5.23(vite@5.4.1(@types/node@20.16.3)(sass@1.78.0)(terser@5.31.1))':
     dependencies:
       escape-string-regexp: 4.0.0
       loader-utils: 3.3.1
       mrmime: 1.0.1
       semver: 7.6.2
-      vite: 5.4.1(@types/node@20.16.3)(sass@1.77.8)(terser@5.31.1)
+      vite: 5.4.1(@types/node@20.16.3)(sass@1.78.0)(terser@5.31.1)
 
   '@mistralai/mistralai@1.0.4(zod@3.23.8)':
     dependencies:
@@ -3718,10 +3718,10 @@ snapshots:
 
   '@ungap/structured-clone@1.2.0': {}
 
-  '@vitejs/plugin-react-swc@3.7.0(vite@5.4.1(@types/node@20.16.3)(sass@1.77.8)(terser@5.31.1))':
+  '@vitejs/plugin-react-swc@3.7.0(vite@5.4.1(@types/node@20.16.3)(sass@1.78.0)(terser@5.31.1))':
     dependencies:
       '@swc/core': 1.6.13
-      vite: 5.4.1(@types/node@20.16.3)(sass@1.77.8)(terser@5.31.1)
+      vite: 5.4.1(@types/node@20.16.3)(sass@1.78.0)(terser@5.31.1)
     transitivePeerDependencies:
       - '@swc/helpers'
 
@@ -5458,7 +5458,7 @@ snapshots:
       es-errors: 1.3.0
       is-regex: 1.1.4
 
-  sass@1.77.8:
+  sass@1.78.0:
     dependencies:
       chokidar: 3.6.0
       immutable: 4.3.6
@@ -5861,7 +5861,7 @@ snapshots:
 
   v8-compile-cache-lib@3.0.1: {}
 
-  vite@5.4.1(@types/node@20.16.3)(sass@1.77.8)(terser@5.31.1):
+  vite@5.4.1(@types/node@20.16.3)(sass@1.78.0)(terser@5.31.1):
     dependencies:
       esbuild: 0.21.5
       postcss: 8.4.41
@@ -5869,7 +5869,7 @@ snapshots:
     optionalDependencies:
       '@types/node': 20.16.3
       fsevents: 2.3.3
-      sass: 1.77.8
+      sass: 1.78.0
       terser: 5.31.1
 
   watchpack@2.4.1:
