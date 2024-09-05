@@ -22,5 +22,12 @@
   },
   "devDependencies": {
     "@extension/tsconfig": "workspace:*"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.27.2",
+    "@mistralai/mistralai": "^1.0.4",
+    "groq-sdk": "^0.7.0",
+    "ollama": "^0.5.8",
+    "openai": "^4.57.3"
   }
 }
