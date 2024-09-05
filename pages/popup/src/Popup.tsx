@@ -1,7 +1,6 @@
-import '@src/Popup.css'
 import { useStorage, withErrorBoundary, withSuspense } from '@extension/shared'
-import { apiKeyDataStorage, exampleThemeStorage } from '@extension/storage'
-import { ComponentPropsWithoutRef, useEffect, useState } from 'react'
+import { apiKeyDataStorage } from '@extension/storage'
+import { useEffect, useState } from 'react'
 
 export const supportedModels = [
   {

@@ -1,6 +1,6 @@
 import { createStorage } from './base'
 import { StorageEnum } from './enums'
-import { BaseStorage } from './types'
+import type { BaseStorage } from './types'
 
 export type Theme = 'light' | 'dark'
 
