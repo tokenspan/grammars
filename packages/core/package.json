@@ -1,29 +1,29 @@
 {
-  "name": "@extension/devtools",
+  "name": "@extension/core",
   "version": "0.3.1",
-  "description": "chrome extension - devtools",
+  "description": "chrome extension - core",
   "private": true,
-  "sideEffects": true,
+  "sideEffects": false,
   "files": [
     "dist/**"
   ],
+  "main": "./dist/index.js",
+  "types": "index.ts",
   "scripts": {
+    "clean:bundle": "pnpx rimraf dist",
     "clean:node_modules": "pnpx rimraf node_modules",
     "clean:turbo": "pnpx rimraf .turbo",
-    "clean": "pnpm clean:node_modules && pnpm clean:turbo",
-    "build": "vite build",
-    "dev": "cross-env __DEV__=true vite build --mode development",
+    "clean": "pnpm clean:bundle && pnpm clean:node_modules && pnpm clean:turbo",
+    "ready": "node build.mjs",
     "lint": "eslint . --ext .ts,.tsx",
     "lint:fix": "pnpm lint --fix",
     "prettier": "prettier . --write --ignore-path ../../.prettierignore",
     "type-check": "tsc --noEmit"
   },
-  "dependencies": {
-    "@extension/shared": "workspace:*"
-  },
   "devDependencies": {
     "@extension/tsconfig": "workspace:*",
-    "@extension/vite-config": "workspace:*",
-    "cross-env": "^7.0.3"
+    "@types/jest": "^29.5.12",
+    "jest": "^29.7.0",
+    "ts-jest": "^29.2.5"
   }
 }
