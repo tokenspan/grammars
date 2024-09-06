@@ -1,4 +1,3 @@
-import 'dotenv/config'
 import Groq from 'groq-sdk'
 
 const client = new Groq({
@@ -20,26 +19,6 @@ async function main() {
     ],
     model: 'llama-3.1-70b-versatile',
     temperature: 0.3,
-    // tools: [
-    //   {
-    //     type: "function",
-    //     function: {
-    //       name: "grammar_correction",
-    //       description:
-    //         "Correct grammar errors in text and explain the correction",
-    //       parameters: {
-    //         type: "object",
-    //         properties: {
-    //           corrected_text: {
-    //             type: "string",
-    //             description: "The corrected version grammar errors fixed",
-    //           },
-    //         },
-    //         required: ["corrected_text"],
-    //       },
-    //     },
-    //   },
-    // ],
   })
 
   console.log(JSON.stringify(chatCompletion, null, 2))

@@ -1,5 +1,9 @@
-import { toggleTheme } from '@lib/toggleTheme'
+export function loadEditableContent() {}
 
-console.log('content script loaded')
+export function injectGrammarsButton() {}
 
-void toggleTheme()
+export async function applyCorrection() {}
+
+export async function mount() {}
+
+void mount()

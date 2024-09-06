@@ -1,4 +1,3 @@
-import 'dotenv/config'
 import ollama from 'ollama'
 
 async function main() {

@@ -1,4 +1,3 @@
-import 'dotenv/config'
 import { Mistral } from '@mistralai/mistralai'
 
 const client = new Mistral({
@@ -20,25 +19,6 @@ async function main() {
     ],
     model: 'open-mistral-nemo-2407',
     temperature: 0.3,
-    // tools: [
-    //   {
-    //     type: "function",
-    //     function: {
-    //       name: "grammar_correction",
-    //       description: "Check and correct all grammar errors in the text",
-    //       parameters: {
-    //         type: "object",
-    //         properties: {
-    //           corrected_text: {
-    //             type: "string",
-    //             description: "The fixed text with grammar errors corrected",
-    //           },
-    //         },
-    //         required: ["corrected_text"],
-    //       },
-    //     },
-    //   },
-    // ],
   })
 
   console.log(JSON.stringify(chatCompletion, null, 2))
