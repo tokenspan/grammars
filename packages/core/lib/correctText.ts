@@ -6,7 +6,7 @@ export const correctText = async (llm: LLM, text: string) => {
       {
         role: 'system',
         content:
-          "Grammar check and don't provide any explanation, or other information, just return the corrected text",
+          "Act as a proofreader and review the following text. Feel free to rephrase sentences or make changes to enhance clarity but maintain the overall tone and style of the original. Don't provide any explanation, or other information, just return the corrected text",
       },
       {
         role: 'user',
