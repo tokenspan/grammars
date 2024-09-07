@@ -8,10 +8,10 @@ export const supportedModels = [
     provider: 'openai',
     models: ['gpt-3.5-turbo'],
   },
-  {
-    provider: 'anthropic',
-    models: ['claude-3-haiku-20240307'],
-  },
+  // {
+  //   provider: 'anthropic',
+  //   models: ['claude-3-haiku-20240307'],
+  // },
 ]
 
 const Popup = () => {
@@ -21,7 +21,7 @@ const Popup = () => {
   const [model, setModel] = useState<LLMOptions['model']>(apiKeyData.model)
   const [models, setModels] = useState<string[]>([])
 
-  const [apiKey, setApiKey] = useState<string>(apiKeyData.apiKey)
+  const [apiKey, setApiKey] = useState<string>('')
 
   const llm = useLLM({
     provider,
@@ -29,6 +29,11 @@ const Popup = () => {
     model,
   })
   const { correctedText, currentText, correct } = useCorrection(llm)
+
+  useEffect(() => {
+    const apiKeys = apiKeyData.apiKeys ?? {}
+    setApiKey(apiKeys[provider] ?? '')
+  }, [apiKeyData, provider])
 
   useEffect(() => {
     const found = supportedModels.find(model => model.provider === provider)
@@ -47,6 +52,7 @@ const Popup = () => {
             </option>
           ))}
         </select>
+        <br />
 
         <select value={model} onChange={e => setModel(e.target.value as unknown as LLMOptions['model'])}>
           {models.map(model => (
@@ -55,14 +61,18 @@ const Popup = () => {
             </option>
           ))}
         </select>
+        <br />
 
-        <input type="text" value={apiKey} onChange={e => setApiKey(e.target.value)} />
+        <input className="border w-full" type="text" value={apiKey} onChange={e => setApiKey(e.target.value)} />
         <br />
 
         <button
+          className="border"
           onClick={async () => {
+            const apiKeys = { ...apiKeyData.apiKeys, [provider]: apiKey }
+
             await apiKeyDataStorage.set({
-              apiKey,
+              apiKeys,
               provider,
               model,
             })
@@ -79,6 +89,7 @@ const Popup = () => {
       </div>
 
       <button
+        className="border"
         onClick={async () => {
           await correct("Adam told me we wasn't have any food so I said that I is some on the way home.")
         }}>

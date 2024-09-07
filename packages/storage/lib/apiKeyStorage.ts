@@ -5,7 +5,7 @@ import type { LLMOptions } from '@extension/llm'
 interface ApiKeyData {
   provider: LLMOptions['provider']
   model: LLMOptions['model']
-  apiKey: string
+  apiKeys: Record<LLMOptions['provider'], string>
 }
 
 const storage = createStorage<ApiKeyData>(
@@ -13,7 +13,7 @@ const storage = createStorage<ApiKeyData>(
   {
     provider: 'openai',
     model: 'gpt-3.5-turbo',
-    apiKey: '',
+    apiKeys: {} as Record<LLMOptions['provider'], string>,
   },
   {
     storageEnum: StorageEnum.Local,
