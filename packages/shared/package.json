@@ -22,6 +22,8 @@
   },
   "devDependencies": {
     "@extension/storage": "workspace:*",
-    "@extension/tsconfig": "workspace:*"
+    "@extension/tsconfig": "workspace:*",
+    "@extension/llm": "workspace:*",
+    "@extension/core": "workspace:*"
   }
 }

@@ -1,9 +1,10 @@
 import { createStorage } from './base'
 import { StorageEnum } from './enums'
+import type { LLMOptions } from '@extension/llm'
 
 interface ApiKeyData {
-  provider: string
-  model: string
+  provider: LLMOptions['provider']
+  model: LLMOptions['model']
   apiKey: string
 }
 

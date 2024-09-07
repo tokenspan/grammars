@@ -1,25 +1,55 @@
 import OpenAI from 'openai'
+import type {
+  BaseLLM,
+  ChatCompletion,
+  ChatCompletionCreateParams,
+  ChatCompletionMessage,
+  Choice,
+  BaseLLMOptions,
+} from './common'
+import dayjs from 'dayjs'
 
-const client = new OpenAI({
-  apiKey: '',
-})
+export type OpenAIModel = 'gpt-3.5-turbo'
 
-export const correctText = async (text: string) => {
-  const chatCompletion = await client.chat.completions.create({
-    messages: [
-      {
-        role: 'system',
-        content:
-          "Grammar check and don't provide any explanation, or other information, just return the corrected text",
+export interface OpenAILLMOptions extends BaseLLMOptions<'openai', OpenAIModel> {
+  model: OpenAIModel
+}
+
+export class OpenAILLM implements BaseLLM {
+  private readonly client: OpenAI
+
+  constructor(private readonly options: OpenAILLMOptions) {
+    this.client = new OpenAI({
+      apiKey: options.apiKey,
+      dangerouslyAllowBrowser: true,
+    })
+  }
+
+  async complete(options: ChatCompletionCreateParams<OpenAIModel>): Promise<ChatCompletion> {
+    const model = options.model ?? this.options.model
+    if (!model) {
+      throw new Error('Model not specified')
+    }
+
+    const chatCompletion = await this.client.chat.completions.create({
+      messages: options.messages,
+      model,
+      temperature: options.temperature,
+    })
+
+    const choices = chatCompletion.choices
+
+    return {
+      choices,
+      created_at: dayjs.unix(chatCompletion.created).toDate(),
+      object: 'chat.completion',
+      usage: chatCompletion.usage,
+      get firstChoice(): Choice | null {
+        return choices[0] ?? null
       },
-      {
-        role: 'user',
-        content: text,
+      get firstChoiceMessage(): ChatCompletionMessage | null {
+        return choices[0]?.message ?? null
       },
-    ],
-    model: 'gpt-3.5-turbo',
-    temperature: 0.3,
-  })
-
-  return chatCompletion.choices[0]?.message?.content?.trim().replaceAll('\n', ' ')
+    }
+  }
 }

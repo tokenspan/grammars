@@ -20,6 +20,9 @@
     "prettier": "prettier . --write --ignore-path ../../.prettierignore",
     "type-check": "tsc --noEmit"
   },
+  "dependencies": {
+    "@extension/llm": "workspace:*"
+  },
   "devDependencies": {
     "@extension/tsconfig": "workspace:*"
   }
