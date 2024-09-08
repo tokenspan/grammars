@@ -22,10 +22,11 @@
     "test": "vitest run"
   },
   "dependencies": {
-    "@extension/llm": "workspace:*"
+    "@extension/llm": "workspace:*",
+    "diff": "^7.0.0"
   },
   "devDependencies": {
     "@extension/tsconfig": "workspace:*",
-    "vitest": "^2.0.5"
+    "@types/diff": "^5.2.2"
   }
 }

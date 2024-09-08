@@ -1,44 +1,93 @@
-export interface Difference {
-  index: number
-  actual: string | null
-  expected: string | null
+import { Diff } from 'diff'
+
+interface TextDiff {
+  text: string
+}
+
+interface ChangeDiff {
+  add: string
+  remove: string
+}
+
+export type Difference = TextDiff | ChangeDiff
+
+const isTextDiff = (diff: Difference): diff is TextDiff => !('add' in diff) && !('remove' in diff)
+
+const isChangeDiff = (diff: Difference): diff is ChangeDiff => !('text' in diff)
+
+interface DiffWordsOptions {
+  ignoreWhitespace?: boolean
+  ignoreCase?: boolean
+  intlSegmenter?: Intl.Segmenter
+}
+
+const wordWithSpaceDiff = new Diff()
+wordWithSpaceDiff.tokenize = function (value) {
+  return Array.from(new Intl.Segmenter('en', { granularity: 'word' }).segment(value), segment => segment.segment)
 }
 
 export function findDifferences(sentence1: string, sentence2: string): Difference[] {
-  const words1 = sentence1.split(' ')
-  const words2 = sentence2.split(' ')
+  const diffs = wordWithSpaceDiff.diff(sentence1, sentence2, {
+    ignoreWhitespace: false,
+    ignoreCase: false,
+    intlSegmenter: new Intl.Segmenter('en', { granularity: 'word' }),
+  } as DiffWordsOptions)
 
-  const diff: Difference[] = []
+  const differences: Difference[] = []
+  let previousChange: Difference | null = null
+  for (let i = 0; i < diffs.length; i++) {
+    const diff = diffs[i]
+    if (!diff.added && !diff.removed) {
+      differences.push({
+        text: diff.value,
+      })
+      previousChange = null
+      continue
+    }
 
-  let i = 0
-  let j = 0
-  while (i < words1.length || j < words2.length) {
-    if (i < words1.length && j < words2.length) {
-      if (words1[i] !== words2[j]) {
-        diff.push({
-          index: i,
-          actual: words1[i],
-          expected: words2[j],
-        })
+    if (!previousChange) {
+      previousChange = {
+        remove: '',
+        add: '',
       }
-      i++
-      j++
-    } else if (i < words1.length) {
-      diff.push({
-        index: i,
-        actual: words1[i],
-        expected: null,
-      })
-      i++
-    } else if (j < words2.length) {
-      diff.push({
-        index: j,
-        actual: null,
-        expected: words2[j],
-      })
-      j++
+      differences.push(previousChange)
+    }
+
+    if (!previousChange) {
+      continue
+    }
+
+    if (diff.removed) {
+      previousChange.remove += diff.value
+    }
+
+    if (diff.added) {
+      previousChange.add += diff.value
     }
   }
 
-  return diff
+  return differences
+}
+
+export function applyDifference(differences: Difference[], index: number): string {
+  let counter = -1
+  let isUpdated = false
+  let result = ''
+  for (const difference of differences) {
+    if (isTextDiff(difference)) {
+      result += difference.text
+    }
+
+    if (isChangeDiff(difference)) {
+      counter += 1
+      if (counter === index && !isUpdated) {
+        result += difference.add
+        isUpdated = true
+      } else {
+        result += difference.remove
+      }
+    }
+  }
+
+  return result
 }
