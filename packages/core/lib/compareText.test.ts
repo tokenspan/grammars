@@ -96,6 +96,8 @@ describe('applyDifference', () => {
 
     let differences: Difference[] = findDifferences(text1, text2)
     text1 = applyDifference(differences, 0)
+    console.log('differences', differences)
+    console.log('text1', text1)
     expect(text1).toEqual("Adam told me we wasn't have any food   so I said that I is some on the way home.")
 
     differences = findDifferences(text1, text2)

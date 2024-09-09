@@ -1,11 +1,11 @@
 {
   "extensionDescription": {
-    "description": "Extension description",
-    "message": "Chrome extension boilerplate developed with Vite, React and Typescript"
+    "description": "Free AI-Powered Grammar Perfection",
+    "message": "Free AI for flawless grammar and spelling. Instant corrections, everywhere you write!"
   },
   "extensionName": {
-    "description": "Extension name",
-    "message": "Chrome extension boilerplate"
+    "description": "Free AI-Powered Grammar Perfection",
+    "message": "Grammars"
   },
   "toggleTheme": {
     "message": "Toggle theme"
