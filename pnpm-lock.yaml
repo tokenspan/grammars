@@ -89,7 +89,7 @@ importers:
         version: 1.1.6
       tailwindcss:
         specifier: ^3.4.6
-        version: 3.4.6(ts-node@10.9.2(@swc/core@1.6.13)(@types/node@20.16.3)(typescript@5.5.4))
+        version: 3.4.6(ts-node@10.9.2(@swc/core@1.6.13(@swc/helpers@0.5.13))(@types/node@20.16.3)(typescript@5.5.4))
       tslib:
         specifier: ^2.6.3
         version: 2.6.3
@@ -150,7 +150,7 @@ importers:
         version: 0.30.10
       ts-loader:
         specifier: ^9.5.1
-        version: 9.5.1(typescript@5.5.4)(webpack@5.92.1(@swc/core@1.6.13)(esbuild@0.23.0))
+        version: 9.5.1(typescript@5.5.4)(webpack@5.92.1(@swc/core@1.6.13(@swc/helpers@0.5.13))(esbuild@0.23.0))
 
   packages/core:
     dependencies:
@@ -199,7 +199,7 @@ importers:
         version: 4.20.0
       ts-node:
         specifier: ^10.9.2
-        version: 10.9.2(@swc/core@1.6.13)(@types/node@20.16.3)(typescript@5.5.4)
+        version: 10.9.2(@swc/core@1.6.13(@swc/helpers@0.5.13))(@types/node@20.16.3)(typescript@5.5.4)
       ws:
         specifier: 8.18.0
         version: 8.18.0
@@ -293,7 +293,7 @@ importers:
         version: link:../tsconfig
       '@vitejs/plugin-react-swc':
         specifier: ^3.6.0
-        version: 3.7.0(vite@5.4.1(@types/node@20.16.3)(sass@1.77.8)(terser@5.31.1))
+        version: 3.7.0(@swc/helpers@0.5.13)(vite@5.4.1(@types/node@20.16.3)(sass@1.77.8)(terser@5.31.1))
       deepmerge:
         specifier: ^4.3.1
         version: 4.3.1
@@ -315,6 +315,12 @@ importers:
 
   pages/content:
     dependencies:
+      '@extension/core':
+        specifier: workspace:*
+        version: link:../../packages/core
+      '@extension/llm':
+        specifier: workspace:*
+        version: link:../../packages/llm
       '@extension/shared':
         specifier: workspace:*
         version: link:../../packages/shared
@@ -1001,6 +1007,9 @@ packages:
 
   '@swc/counter@0.1.3':
     resolution: {integrity: sha512-e2BR4lsJkkRlKZ/qCHPw9ZaSxc0MVUd7gtbtaB7aMvHeJVYe8sOB8DBZkP2DtISHGSku9sCK6T6cnY0CtXrOCQ==}
+
+  '@swc/helpers@0.5.13':
+    resolution: {integrity: sha512-UoKGxQ3r5kYI9dALKJapMmuK+1zWM/H17Z1+iwnNmzcJRnfFuevZs375TA5rW31pu4BS4NoSy1fRsexDXfWn5w==}
 
   '@swc/types@0.1.9':
     resolution: {integrity: sha512-qKnCno++jzcJ4lM4NTfYifm1EFSCeIfKiAHAfkENZAV5Kl9PjJIyd2yeeVv6c/2CckuLyv2NmRC5pv6pm2WQBg==}
@@ -3623,7 +3632,7 @@ snapshots:
   '@swc/core-win32-x64-msvc@1.6.13':
     optional: true
 
-  '@swc/core@1.6.13':
+  '@swc/core@1.6.13(@swc/helpers@0.5.13)':
     dependencies:
       '@swc/counter': 0.1.3
       '@swc/types': 0.1.9
@@ -3638,8 +3647,14 @@ snapshots:
       '@swc/core-win32-arm64-msvc': 1.6.13
       '@swc/core-win32-ia32-msvc': 1.6.13
       '@swc/core-win32-x64-msvc': 1.6.13
+      '@swc/helpers': 0.5.13
 
   '@swc/counter@0.1.3': {}
+
+  '@swc/helpers@0.5.13':
+    dependencies:
+      tslib: 2.6.3
+    optional: true
 
   '@swc/types@0.1.9':
     dependencies:
@@ -3797,9 +3812,9 @@ snapshots:
 
   '@ungap/structured-clone@1.2.0': {}
 
-  '@vitejs/plugin-react-swc@3.7.0(vite@5.4.1(@types/node@20.16.3)(sass@1.77.8)(terser@5.31.1))':
+  '@vitejs/plugin-react-swc@3.7.0(@swc/helpers@0.5.13)(vite@5.4.1(@types/node@20.16.3)(sass@1.77.8)(terser@5.31.1))':
     dependencies:
-      '@swc/core': 1.6.13
+      '@swc/core': 1.6.13(@swc/helpers@0.5.13)
       vite: 5.4.1(@types/node@20.16.3)(sass@1.77.8)(terser@5.31.1)
     transitivePeerDependencies:
       - '@swc/helpers'
@@ -5418,13 +5433,13 @@ snapshots:
       camelcase-css: 2.0.1
       postcss: 8.4.39
 
-  postcss-load-config@4.0.2(postcss@8.4.39)(ts-node@10.9.2(@swc/core@1.6.13)(@types/node@20.16.3)(typescript@5.5.4)):
+  postcss-load-config@4.0.2(postcss@8.4.39)(ts-node@10.9.2(@swc/core@1.6.13(@swc/helpers@0.5.13))(@types/node@20.16.3)(typescript@5.5.4)):
     dependencies:
       lilconfig: 3.1.2
       yaml: 2.4.5
     optionalDependencies:
       postcss: 8.4.39
-      ts-node: 10.9.2(@swc/core@1.6.13)(@types/node@20.16.3)(typescript@5.5.4)
+      ts-node: 10.9.2(@swc/core@1.6.13(@swc/helpers@0.5.13))(@types/node@20.16.3)(typescript@5.5.4)
 
   postcss-load-config@6.0.1(jiti@1.21.6)(postcss@8.4.41)(tsx@4.16.2)(yaml@2.4.5):
     dependencies:
@@ -5807,7 +5822,7 @@ snapshots:
 
   tailwind-merge@2.4.0: {}
 
-  tailwindcss@3.4.6(ts-node@10.9.2(@swc/core@1.6.13)(@types/node@20.16.3)(typescript@5.5.4)):
+  tailwindcss@3.4.6(ts-node@10.9.2(@swc/core@1.6.13(@swc/helpers@0.5.13))(@types/node@20.16.3)(typescript@5.5.4)):
     dependencies:
       '@alloc/quick-lru': 5.2.0
       arg: 5.0.2
@@ -5826,7 +5841,7 @@ snapshots:
       postcss: 8.4.39
       postcss-import: 15.1.0(postcss@8.4.39)
       postcss-js: 4.0.1(postcss@8.4.39)
-      postcss-load-config: 4.0.2(postcss@8.4.39)(ts-node@10.9.2(@swc/core@1.6.13)(@types/node@20.16.3)(typescript@5.5.4))
+      postcss-load-config: 4.0.2(postcss@8.4.39)(ts-node@10.9.2(@swc/core@1.6.13(@swc/helpers@0.5.13))(@types/node@20.16.3)(typescript@5.5.4))
       postcss-nested: 6.0.1(postcss@8.4.39)
       postcss-selector-parser: 6.1.0
       resolve: 1.22.8
@@ -5836,16 +5851,16 @@ snapshots:
 
   tapable@2.2.1: {}
 
-  terser-webpack-plugin@5.3.10(@swc/core@1.6.13)(esbuild@0.23.0)(webpack@5.92.1(@swc/core@1.6.13)(esbuild@0.23.0)):
+  terser-webpack-plugin@5.3.10(@swc/core@1.6.13(@swc/helpers@0.5.13))(esbuild@0.23.0)(webpack@5.92.1(@swc/core@1.6.13(@swc/helpers@0.5.13))(esbuild@0.23.0)):
     dependencies:
       '@jridgewell/trace-mapping': 0.3.25
       jest-worker: 27.5.1
       schema-utils: 3.3.0
       serialize-javascript: 6.0.2
       terser: 5.31.1
-      webpack: 5.92.1(@swc/core@1.6.13)(esbuild@0.23.0)
+      webpack: 5.92.1(@swc/core@1.6.13(@swc/helpers@0.5.13))(esbuild@0.23.0)
     optionalDependencies:
-      '@swc/core': 1.6.13
+      '@swc/core': 1.6.13(@swc/helpers@0.5.13)
       esbuild: 0.23.0
 
   terser@5.31.1:
@@ -5887,7 +5902,7 @@ snapshots:
 
   ts-interface-checker@0.1.13: {}
 
-  ts-loader@9.5.1(typescript@5.5.4)(webpack@5.92.1(@swc/core@1.6.13)(esbuild@0.23.0)):
+  ts-loader@9.5.1(typescript@5.5.4)(webpack@5.92.1(@swc/core@1.6.13(@swc/helpers@0.5.13))(esbuild@0.23.0)):
     dependencies:
       chalk: 4.1.2
       enhanced-resolve: 5.17.0
@@ -5895,9 +5910,9 @@ snapshots:
       semver: 7.6.2
       source-map: 0.7.4
       typescript: 5.5.4
-      webpack: 5.92.1(@swc/core@1.6.13)(esbuild@0.23.0)
+      webpack: 5.92.1(@swc/core@1.6.13(@swc/helpers@0.5.13))(esbuild@0.23.0)
 
-  ts-node@10.9.2(@swc/core@1.6.13)(@types/node@20.16.3)(typescript@5.5.4):
+  ts-node@10.9.2(@swc/core@1.6.13(@swc/helpers@0.5.13))(@types/node@20.16.3)(typescript@5.5.4):
     dependencies:
       '@cspotcode/source-map-support': 0.8.1
       '@tsconfig/node10': 1.0.11
@@ -5915,7 +5930,7 @@ snapshots:
       v8-compile-cache-lib: 3.0.1
       yn: 3.1.1
     optionalDependencies:
-      '@swc/core': 1.6.13
+      '@swc/core': 1.6.13(@swc/helpers@0.5.13)
 
   tsconfig-paths@3.15.0:
     dependencies:
@@ -6100,7 +6115,7 @@ snapshots:
 
   webpack-sources@3.2.3: {}
 
-  webpack@5.92.1(@swc/core@1.6.13)(esbuild@0.23.0):
+  webpack@5.92.1(@swc/core@1.6.13(@swc/helpers@0.5.13))(esbuild@0.23.0):
     dependencies:
       '@types/eslint-scope': 3.7.7
       '@types/estree': 1.0.5
@@ -6123,7 +6138,7 @@ snapshots:
       neo-async: 2.6.2
       schema-utils: 3.3.0
       tapable: 2.2.1
-      terser-webpack-plugin: 5.3.10(@swc/core@1.6.13)(esbuild@0.23.0)(webpack@5.92.1(@swc/core@1.6.13)(esbuild@0.23.0))
+      terser-webpack-plugin: 5.3.10(@swc/core@1.6.13(@swc/helpers@0.5.13))(esbuild@0.23.0)(webpack@5.92.1(@swc/core@1.6.13(@swc/helpers@0.5.13))(esbuild@0.23.0))
       watchpack: 2.4.1
       webpack-sources: 3.2.3
     transitivePeerDependencies:

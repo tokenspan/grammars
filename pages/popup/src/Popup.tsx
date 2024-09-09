@@ -1,4 +1,4 @@
-import { useCorrection, useLLM, useStorage, withErrorBoundary, withSuspense } from '@extension/shared'
+import { useStorage, withErrorBoundary, withSuspense } from '@extension/shared'
 import { apiKeyDataStorage } from '@extension/storage'
 import { useEffect, useState } from 'react'
 import type { LLMOptions } from '@extension/llm'
@@ -23,12 +23,12 @@ const Popup = () => {
 
   const [apiKey, setApiKey] = useState<string>('')
 
-  const llm = useLLM({
-    provider,
-    apiKey,
-    model,
-  })
-  const { correctedText, currentText, correct } = useCorrection(llm)
+  // const llm = useLLM({
+  //   provider,
+  //   apiKey,
+  //   model,
+  // })
+  // const { correctedText, currentText, correct } = useCorrection(llm)
 
   useEffect(() => {
     const apiKeys = apiKeyData.apiKeys ?? {}
@@ -44,58 +44,83 @@ const Popup = () => {
 
   return (
     <>
-      <div>
-        <select value={provider} onChange={e => setProvider(e.target.value as unknown as LLMOptions['provider'])}>
-          {supportedModels.map(model => (
-            <option key={model.provider} value={model.provider}>
-              {model.provider}
-            </option>
-          ))}
-        </select>
-        <br />
+      <div className="w-[400px]  ">
+        <div className="w-full p-6">
+          <div className="flex flex-col">
+            <label className="font-semibold" htmlFor="provider">
+              Provider
+            </label>
+            <select
+              id="provider"
+              className="w-1/2 border appearance-none rounded-lg bg-white/5 py-1.5 px-3 text-sm focus-visible:ring-0 focus:outline-none"
+              value={provider}
+              onChange={e => setProvider(e.target.value as unknown as LLMOptions['provider'])}>
+              {supportedModels.map(model => (
+                <option key={model.provider} value={model.provider}>
+                  {model.provider}
+                </option>
+              ))}
+            </select>
+          </div>
+          <br />
+          <div className="flex flex-col">
+            <label className="font-semibold" htmlFor="model">
+              Model
+            </label>
+            <select
+              id="model"
+              className="w-1/2 border appearance-none rounded-lg bg-white/5 py-1.5 px-3 text-sm focus-visible:ring-0 focus:outline-none"
+              value={model}
+              onChange={e => setModel(e.target.value as unknown as LLMOptions['model'])}>
+              {models.map(model => (
+                <option key={model} value={model}>
+                  {model}
+                </option>
+              ))}
+            </select>
+          </div>
+          <br />
+          <div className="flex flex-col">
+            <label htmlFor="apikey">API Key</label>
+            <input
+              className="border rounded-lg w-1/2 py-1.5 px-3 text-sm focus-visible:ring-0 focus:outline-none"
+              type="text"
+              value={apiKey}
+              onChange={e => setApiKey(e.target.value)}
+            />
+          </div>
+          <br />
+          <button
+            className="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+            onClick={async () => {
+              const apiKeys = { ...apiKeyData.apiKeys, [provider]: apiKey }
 
-        <select value={model} onChange={e => setModel(e.target.value as unknown as LLMOptions['model'])}>
-          {models.map(model => (
-            <option key={model} value={model}>
-              {model}
-            </option>
-          ))}
-        </select>
-        <br />
-
-        <input className="border w-full" type="text" value={apiKey} onChange={e => setApiKey(e.target.value)} />
-        <br />
-
-        <button
-          className="border"
-          onClick={async () => {
-            const apiKeys = { ...apiKeyData.apiKeys, [provider]: apiKey }
-
-            await apiKeyDataStorage.set({
-              apiKeys,
-              provider,
-              model,
-            })
-          }}>
-          Save
-        </button>
+              await apiKeyDataStorage.set({
+                apiKeys,
+                provider,
+                model,
+              })
+            }}>
+            Save
+          </button>
+        </div>
       </div>
-      <br />
+      {/*<br />*/}
 
-      <div>
-        Current Text: {currentText}
-        <br />
-        Corrected Text: {correctedText}
-      </div>
+      {/*<div>*/}
+      {/*  Current Text: {currentText}*/}
+      {/*  <br />*/}
+      {/*  Corrected Text: {correctedText}*/}
+      {/*</div>*/}
 
-      <button
-        className="border"
-        onClick={async () => {
-          await correct("Adam told me we wasn't have any food so I said that I is some on the way home.")
-        }}>
-        Test
-      </button>
-      <br />
+      {/*<button*/}
+      {/*  className="border"*/}
+      {/*  onClick={async () => {*/}
+      {/*    await correct("Adam told me we wasn't have any food so I said that I is some on the way home.")*/}
+      {/*  }}>*/}
+      {/*  Test*/}
+      {/*</button>*/}
+      {/*<br />*/}
     </>
   )
 }
