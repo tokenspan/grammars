@@ -231,8 +231,8 @@ importers:
         specifier: ^0.5.8
         version: 0.5.8
       openai:
-        specifier: ^4.57.3
-        version: 4.57.3(zod@3.23.8)
+        specifier: ^4.58.1
+        version: 4.58.1(zod@3.23.8)
     devDependencies:
       '@extension/tsconfig':
         specifier: workspace:*
@@ -2430,8 +2430,8 @@ packages:
     resolution: {integrity: sha512-1FlR+gjXK7X+AsAHso35MnyN5KqGwJRi/31ft6x0M194ht7S+rWAvd7PHss9xSKMzE0asv1pyIHaJYq+BbacAQ==}
     engines: {node: '>=12'}
 
-  openai@4.57.3:
-    resolution: {integrity: sha512-mTz5/SmulkkeSpqbSr6WNLRU6krkyhnbfRUC8XfaXbj1T6xUorKEELjZvbRSzI714JLOk1MeFkqYS9H4WHhqDQ==}
+  openai@4.58.1:
+    resolution: {integrity: sha512-n9fN4RIjbj4PbZU6IN/FOBBbxHbHEcW18rDZ4nW2cDNfZP2+upm/FM20UCmRNMQTvhOvw/2Tw4vgioQyQb5nlA==}
     hasBin: true
     peerDependencies:
       zod: ^3.23.8
@@ -5329,7 +5329,7 @@ snapshots:
     dependencies:
       mimic-fn: 4.0.0
 
-  openai@4.57.3(zod@3.23.8):
+  openai@4.58.1(zod@3.23.8):
     dependencies:
       '@types/node': 18.19.50
       '@types/node-fetch': 2.6.11
