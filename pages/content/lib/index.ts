@@ -35,13 +35,13 @@ async function init() {
     'input[type="text"], input[type="search"], input[type="email"], input[type="url"], textarea, [contenteditable="true"]',
   )
 
-  function addEventListenerList(
+  function addEventListenerList<T extends Event>(
     list: NodeListOf<Element> | Element[], // Accepts NodeList or array of elements
     event: string, // Event to listen for
-    fn: (p: any) => void, // Function to handle the event
+    fn: (event: T) => void, // Function to handle the event
   ): void {
     for (let i = 0, len = list.length; i < len; i++) {
-      list[i].addEventListener(event, fn, false)
+      list[i].addEventListener(event, fn as EventListener, false)
     }
   }
 
