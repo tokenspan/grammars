@@ -27,6 +27,7 @@
   },
   "devDependencies": {
     "@extension/tsconfig": "workspace:*",
-    "@types/diff": "^5.2.2"
+    "@types/diff": "^5.2.2",
+    "@types/jest": "^29.5.12"
   }
 }
