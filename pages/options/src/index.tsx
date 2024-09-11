@@ -3,7 +3,7 @@ import '@src/index.css'
 import '@extension/ui/dist/global.css'
 import Options from '@src/Options'
 
-function init() {
+function bootstrap() {
   const appContainer = document.querySelector('#app-container')
   if (!appContainer) {
     throw new Error('Can not find #app-container')
@@ -12,4 +12,4 @@ function init() {
   root.render(<Options />)
 }
 
-init()
+bootstrap()

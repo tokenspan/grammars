@@ -44,7 +44,7 @@ const Popup = () => {
 
   return (
     <>
-      <div className="w-[400px]  ">
+      <div className="w-[400px]">
         <div className="w-full p-6">
           <div className="flex flex-col">
             <label className="font-semibold" htmlFor="provider">

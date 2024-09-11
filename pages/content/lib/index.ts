@@ -22,7 +22,7 @@ const createLLM = async () => {
   })
 }
 
-async function init() {
+async function bootstrap() {
   const llm = await createLLM()
   const tooltip = document.createElement('div')
   tooltip.classList.add('tokenspan-tooltip')
@@ -117,4 +117,4 @@ async function init() {
   addEventListenerList(inputElements, 'focus', onmousedown)
 }
 
-init()
+void bootstrap()
