@@ -36,6 +36,7 @@ const manifest = deepmerge(
       {
         matches: ['http://*/*', 'https://*/*', '<all_urls>'],
         js: ['content/index.iife.js'],
+        run_at: 'document_end',
       },
       {
         matches: ['http://*/*', 'https://*/*', '<all_urls>'],

@@ -1,16 +1,46 @@
-export function loadEditableContent() {}
+import { LLM } from '@extension/llm'
+import { correctText } from '@extension/core'
+import { apiKeyDataStorage } from '@extension/storage'
+
+export function findEditableElements() {
+  const allElements = document.querySelectorAll('*')
+  const editableElements: HTMLElement[] = []
+
+  allElements.forEach(element => {
+    const el = element as HTMLElement
+    if (el.isContentEditable || el.getAttribute('contenteditable') === 'true') {
+      editableElements.push(el)
+    }
+
+    // contentEditable
+    // input
+    // textarea
+  })
+  console.log('editableElements', editableElements)
+  return editableElements.length > 0
+}
+
+export function loadEditableContent() {
+  const id = setInterval(() => {
+    if (findEditableElements()) {
+      if (id) {
+        clearInterval(id)
+      }
+      console.log('loadEditableContent')
+      injectGrammarsButton()
+    }
+  }, 1000)
+}
 
 export function injectGrammarsButton() {}
 
 export async function applyCorrection() {}
 
-export async function mount() {}
+export async function mount() {
+  setTimeout(loadEditableContent, 2000)
+}
 
 void mount()
-
-import { LLM } from '@extension/llm'
-import { correctText } from '@extension/core'
-import { apiKeyDataStorage } from '@extension/storage'
 
 const createLLM = async () => {
   const { provider, model, apiKeys } = await apiKeyDataStorage.get()
@@ -22,7 +52,7 @@ const createLLM = async () => {
   })
 }
 
-async function init() {
+async function bootstrap() {
   const llm = await createLLM()
   const tooltip = document.createElement('div')
   tooltip.classList.add('tokenspan-tooltip')
@@ -117,4 +147,4 @@ async function init() {
   addEventListenerList(inputElements, 'focus', onmousedown)
 }
 
-init()
+// void bootstrap()
