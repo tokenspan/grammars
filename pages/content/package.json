@@ -19,10 +19,11 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
+    "@extension/core": "workspace:*",
+    "@extension/llm": "workspace:*",
     "@extension/shared": "workspace:*",
     "@extension/storage": "workspace:*",
-    "@extension/llm": "workspace:*",
-    "@extension/core": "workspace:*"
+    "@webcomponents/webcomponentsjs": "^2.8.0"
   },
   "devDependencies": {
     "@extension/hmr": "workspace:*",
