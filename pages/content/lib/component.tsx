@@ -1,9 +1,9 @@
 import '@webcomponents/webcomponentsjs'
 import { createRoot, type Root } from 'react-dom/client'
-import styles from '../dist/assets/index.css?inline'
 import { correctText } from '@extension/core'
 import { apiKeyDataStorage } from '@extension/storage'
 import { LLM } from '@extension/llm'
+import tailwindcssOutput from '../dist/content-output.css?inline'
 
 export const normalizeAttribute = (attribute: string) => {
   return attribute.replace(/-([a-z])/g, (_, letter) => letter.toUpperCase())
@@ -128,7 +128,7 @@ class GrammarsExtensionComponent extends HTMLElement {
 
     this.root.render(
       <>
-        <style>{styles}</style>
+        <style>{tailwindcssOutput}</style>
         <GrammarsExtension {...props} />
       </>,
     )
