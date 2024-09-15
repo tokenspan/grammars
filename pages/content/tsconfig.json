@@ -5,7 +5,13 @@
     "paths": {
       "@lib/*": ["lib/*"]
     },
-    "types": ["chrome", "../../vite-env.d.ts"]
+    "types": ["chrome", "../../vite-env.d.ts"],
+    "target": "ES6",
+    "lib": [
+      "DOM",
+      "DOM.Iterable",
+      "ES6"
+    ]
   },
   "include": ["lib"]
 }

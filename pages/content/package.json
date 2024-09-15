@@ -16,7 +16,8 @@
     "lint": "eslint . --ext .ts,.tsx",
     "lint:fix": "pnpm lint --fix",
     "prettier": "prettier . --write --ignore-path ../../.prettierignore",
-    "type-check": "tsc --noEmit"
+    "type-check": "tsc --noEmit",
+    "tailwind": "tailwindcss -i lib/index.css -o dist/assets/index.css"
   },
   "dependencies": {
     "@extension/core": "workspace:*",
@@ -29,6 +30,9 @@
     "@extension/hmr": "workspace:*",
     "@extension/tsconfig": "workspace:*",
     "@extension/vite-config": "workspace:*",
-    "cross-env": "^7.0.3"
+    "autoprefixer": "^10.4.19",
+    "cross-env": "^7.0.3",
+    "postcss": "^8.4.38",
+    "tailwindcss": "^3.4.6"
   }
 }
