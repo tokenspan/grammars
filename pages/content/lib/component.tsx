@@ -146,7 +146,7 @@ class GrammarsExtensionComponent extends HTMLElement {
     const parent = target.parentElement
 
     if (parent) {
-      for (const child of parent.children) {
+      for (const child of Array.from(parent.children)) {
         if ((child as HTMLElement).contentEditable === 'true') {
           const currentText = child.innerHTML
 
