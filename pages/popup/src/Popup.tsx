@@ -2,6 +2,7 @@ import { useStorage, withErrorBoundary, withSuspense } from '@extension/shared'
 import { apiKeyDataStorage } from '@extension/storage'
 import { useEffect, useState } from 'react'
 import type { LLMOptions } from '@extension/llm'
+import { Button } from '@/components/ui/button'
 
 export const supportedModels = [
   {
@@ -103,6 +104,7 @@ const Popup = () => {
             }}>
             Save
           </button>
+          <Button>Click me</Button>
         </div>
       </div>
       {/*<br />*/}
