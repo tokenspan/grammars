@@ -24,15 +24,13 @@
     "@extension/llm": "workspace:*",
     "@extension/shared": "workspace:*",
     "@extension/storage": "workspace:*",
+    "@extension/ui": "workspace:*",
     "@webcomponents/webcomponentsjs": "^2.8.0"
   },
   "devDependencies": {
     "@extension/hmr": "workspace:*",
     "@extension/tsconfig": "workspace:*",
     "@extension/vite-config": "workspace:*",
-    "autoprefixer": "^10.4.19",
-    "cross-env": "^7.0.3",
-    "postcss": "^8.4.38",
-    "tailwindcss": "^3.4.6"
+    "@extension/tailwindcss-config": "workspace:*"
   }
 }
