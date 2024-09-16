@@ -1,13 +1,13 @@
 import OpenAI from 'openai'
-import {
+import type {
   BaseLLM,
   ChatCompletion,
   ChatCompletionCreateParams,
   ChatCompletionMessage,
   Choice,
   BaseLLMOptions,
-  ModelNotSupportedError,
 } from './common'
+import { ModelNotSupportedError } from './common'
 import dayjs from 'dayjs'
 
 export type OpenAIModel = 'gpt-3.5-turbo'
