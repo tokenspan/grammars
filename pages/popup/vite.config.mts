@@ -7,7 +7,7 @@ const srcDir = resolve(rootDir, 'src')
 export default withPageConfig({
   resolve: {
     alias: {
-      '@src': srcDir,
+      '@': srcDir,
     },
   },
   publicDir: resolve(rootDir, 'public'),
