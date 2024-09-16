@@ -1,8 +1,7 @@
-name: Build And Upload Extension Zip Via Artifact
+name: Build
 
 on:
-  push:
-    branches: [ main ]
+  pull_request:
 
 jobs:
   build:
@@ -20,7 +19,3 @@ jobs:
       - run: pnpm install --frozen-lockfile --prefer-offline
 
       - run: pnpm build
-
-      - uses: actions/upload-artifact@v4
-        with:
-          path: dist/*
