@@ -1,26 +1,14 @@
 import './component'
+import { Website } from '@lib/websites'
 
 export function findEditableElements() {
   // Slack
-  const allElements = document.getElementsByClassName('ql-container')
-  const editableElements: HTMLElement[] = []
+  const website = new Website('app.slack.com')
+  const editableElements: HTMLElement[] = website.findEditableElements()
 
-  for (let i = 0; i < allElements.length; i++) {
-    const element = allElements[i] as HTMLElement
-    editableElements.push(element)
+  for (const element of editableElements) {
     injectGrammarsButton(element)
   }
-
-  // for (const element in allElements) {
-  //   const el = allElements[element] as HTMLElement
-  //   editableElements.push(el)
-  // }
-
-  // const textareas = document.querySelectorAll('textarea')
-  // textareas.forEach(textarea => {
-  //   editableElements.push(textarea)
-  //   injectGrammarsButton(textarea)
-  // })
 
   console.log('editableElements', editableElements)
   return editableElements.length > 0
