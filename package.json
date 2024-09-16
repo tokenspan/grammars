@@ -62,7 +62,7 @@
     "tslib": "^2.6.3",
     "turbo": "^2.1.1",
     "typescript": "5.5.4",
-    "vite": "5.4.1",
+    "vite": "5.4.5",
     "vitest": "^2.0.5"
   },
   "lint-staged": {
