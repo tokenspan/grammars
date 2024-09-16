@@ -1,3 +1,5 @@
+export * from './errors'
+
 export interface BaseLLMOptions<TProvider extends string, TModel extends string> {
   provider: TProvider
   apiKey: string

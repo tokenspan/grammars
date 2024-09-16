@@ -1,9 +1,15 @@
 import 'webextension-polyfill'
-import { exampleThemeStorage } from '@extension/storage'
+import { configStorage } from '@extension/storage'
 
-exampleThemeStorage.get().then(theme => {
-  console.log('theme', theme)
+chrome.tabs.onActivated.addListener(async activeInfo => {
+  console.log('activeInfo', activeInfo)
+  const [tab] = await chrome.tabs.query({ active: true, lastFocusedWindow: true })
+
+  console.log('tab', tab?.url)
+  const config = await configStorage.get()
+
+  if (tab?.url) {
+    const hostname = new URL(tab.url).hostname
+    await configStorage.set({ ...config, currentTabHost: hostname })
+  }
 })
-
-console.log('background loaded')
-console.log("Edit 'chrome-extension/lib/background/index.ts' and save to reload.")

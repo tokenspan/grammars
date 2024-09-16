@@ -7,6 +7,7 @@ import type {
   Choice,
   BaseLLMOptions,
 } from './common'
+import { ModelNotSupportedError } from './common'
 import dayjs from 'dayjs'
 
 export type OpenAIModel = 'gpt-3.5-turbo'
@@ -28,7 +29,7 @@ export class OpenAILLM implements BaseLLM {
   async complete(options: ChatCompletionCreateParams<OpenAIModel>): Promise<ChatCompletion> {
     const model = options.model ?? this.options.model
     if (!model) {
-      throw new Error('Model not specified')
+      throw new ModelNotSupportedError(model)
     }
 
     const chatCompletion = await this.client.chat.completions.create({

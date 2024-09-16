@@ -1,128 +1,122 @@
 import { useStorage, withErrorBoundary, withSuspense } from '@extension/shared'
-import { apiKeyDataStorage } from '@extension/storage'
-import { useEffect, useState } from 'react'
+import { configStorage } from '@extension/storage'
+import { useMemo, useState } from 'react'
 import type { LLMOptions } from '@extension/llm'
-import { Button } from '@/components/ui/button'
+import { Input } from '@/components/ui/input'
+import { Label } from '@/components/ui/label'
+import { Select, SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import useAsyncEffect from 'use-async-effect'
+import { Switch } from '@/components/ui/switch'
+import { Logo } from '@/components/logo'
+import { useDebouncedCallback } from 'use-debounce'
 
-export const supportedModels = [
+export const SUPPORTED_MODELS = [
   {
+    model: 'gpt-3.5-turbo',
     provider: 'openai',
-    models: ['gpt-3.5-turbo'],
   },
-  // {
-  //   provider: 'anthropic',
-  //   models: ['claude-3-haiku-20240307'],
-  // },
+  {
+    model: 'claude-3-haiku-20240307',
+    provider: 'anthropic',
+  },
 ]
 
 const Popup = () => {
-  const apiKeyData = useStorage(apiKeyDataStorage)
+  const configData = useStorage(configStorage)
 
-  const [provider, setProvider] = useState<LLMOptions['provider']>(apiKeyData.provider)
-  const [model, setModel] = useState<LLMOptions['model']>(apiKeyData.model)
-  const [models, setModels] = useState<string[]>([])
-
+  const [model, setModel] = useState<string>(configData.model)
   const [apiKey, setApiKey] = useState<string>('')
+  const [host] = useState<string>(configData.currentTabHost)
+  const hasDisabledHost = useMemo(() => configData.disabledHosts?.includes(host), [configData.disabledHosts, host])
 
-  // const llm = useLLM({
-  //   provider,
-  //   apiKey,
-  //   model,
-  // })
-  // const { correctedText, currentText, correct } = useCorrection(llm)
+  useAsyncEffect(async () => {
+    const apiKeys = configData.apiKeys ?? {}
+    setApiKey(apiKeys[model] ?? '')
+  }, [configData, model])
 
-  useEffect(() => {
-    const apiKeys = apiKeyData.apiKeys ?? {}
-    setApiKey(apiKeys[provider] ?? '')
-  }, [apiKeyData, provider])
+  useAsyncEffect(async () => {
+    await configStorage.set({
+      ...configData,
+      model,
+    })
+  }, [configData, model])
 
-  useEffect(() => {
-    const found = supportedModels.find(model => model.provider === provider)
-    if (found) {
-      setModels(found.models)
-    }
-  }, [provider])
+  const handleUpdateApiKey = useDebouncedCallback(
+    // function
+    async (value: string) => {
+      const apiKeys = configData.apiKeys ?? {}
+      await configStorage.set({
+        ...configData,
+        apiKeys: {
+          ...apiKeys,
+          [model]: value,
+        },
+      })
+    },
+    // delay in ms
+    200,
+  )
 
   return (
     <>
-      <div className="w-[400px]  ">
-        <div className="w-full p-6">
-          <div className="flex flex-col">
-            <label className="font-semibold" htmlFor="provider">
-              Provider
-            </label>
-            <select
-              id="provider"
-              className="w-1/2 border appearance-none rounded-lg bg-white/5 py-1.5 px-3 text-sm focus-visible:ring-0 focus:outline-none"
-              value={provider}
-              onChange={e => setProvider(e.target.value as unknown as LLMOptions['provider'])}>
-              {supportedModels.map(model => (
-                <option key={model.provider} value={model.provider}>
-                  {model.provider}
-                </option>
-              ))}
-            </select>
-          </div>
-          <br />
-          <div className="flex flex-col">
-            <label className="font-semibold" htmlFor="model">
-              Model
-            </label>
-            <select
-              id="model"
-              className="w-1/2 border appearance-none rounded-lg bg-white/5 py-1.5 px-3 text-sm focus-visible:ring-0 focus:outline-none"
-              value={model}
-              onChange={e => setModel(e.target.value as unknown as LLMOptions['model'])}>
-              {models.map(model => (
-                <option key={model} value={model}>
-                  {model}
-                </option>
-              ))}
-            </select>
-          </div>
-          <br />
-          <div className="flex flex-col">
-            <label htmlFor="apikey">API Key</label>
-            <input
-              className="border rounded-lg w-1/2 py-1.5 px-3 text-sm focus-visible:ring-0 focus:outline-none"
-              type="text"
-              value={apiKey}
-              onChange={e => setApiKey(e.target.value)}
+      <div className="">
+        <div className="mb-3 p-3 border-b border-gray-200 flex items-center">
+          <Logo />
+          <p className="ml-2 font-semibold">Grammars</p>
+        </div>
+        <div className="px-3 pb-3">
+          <div className="mb-3 flex items-center justify-between">
+            <Label htmlFor="airplane-mode">
+              Disable for <span className="underline">{host}</span>
+            </Label>
+            <Switch
+              id="airplane-mode"
+              checked={hasDisabledHost}
+              onCheckedChange={async checked => {
+                if (checked) {
+                  const disabledHosts = configData.disabledHosts ?? []
+                  await configStorage.set({
+                    ...configData,
+                    disabledHosts: Array.from(new Set([...disabledHosts, host])),
+                  })
+                }
+              }}
             />
           </div>
-          <br />
-          <button
-            className="inline-block bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            onClick={async () => {
-              const apiKeys = { ...apiKeyData.apiKeys, [provider]: apiKey }
 
-              await apiKeyDataStorage.set({
-                apiKeys,
-                provider,
-                model,
-              })
-            }}>
-            Save
-          </button>
-          <Button>Click me</Button>
+          <div className="mb-3">
+            <Label htmlFor="provider">Model</Label>
+            <Select onValueChange={value => setModel(value as LLMOptions['model'])} defaultValue={model} value={model}>
+              <SelectTrigger className="w-full">
+                <SelectValue placeholder="Select a model" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  {SUPPORTED_MODELS.map(value => (
+                    <SelectItem key={value.model} value={value.model}>
+                      {value.model}
+                    </SelectItem>
+                  ))}
+                </SelectGroup>
+              </SelectContent>
+            </Select>
+          </div>
+
+          <div className="mb-3">
+            <Label htmlFor="email">API Key</Label>
+            <Input
+              type="email"
+              id="email"
+              placeholder="Enter your API key"
+              defaultValue={apiKey}
+              onChange={async e => {
+                setApiKey(e.target.value)
+                await handleUpdateApiKey(e.target.value)
+              }}
+            />
+          </div>
         </div>
       </div>
-      {/*<br />*/}
-
-      {/*<div>*/}
-      {/*  Current Text: {currentText}*/}
-      {/*  <br />*/}
-      {/*  Corrected Text: {correctedText}*/}
-      {/*</div>*/}
-
-      {/*<button*/}
-      {/*  className="border"*/}
-      {/*  onClick={async () => {*/}
-      {/*    await correct("Adam told me we wasn't have any food so I said that I is some on the way home.")*/}
-      {/*  }}>*/}
-      {/*  Test*/}
-      {/*</button>*/}
-      {/*<br />*/}
     </>
   )
 }

@@ -1,9 +1,10 @@
 import '@webcomponents/webcomponentsjs'
 import { createRoot, type Root } from 'react-dom/client'
 import { correctText } from '@extension/core'
-import { apiKeyDataStorage } from '@extension/storage'
+import type { LLMOptions } from '@extension/llm'
 import { LLM } from '@extension/llm'
 import tailwindcssOutput from '../dist/content-output.css?inline'
+import { configStorage } from '@extension/storage'
 
 export const normalizeAttribute = (attribute: string) => {
   return attribute.replace(/-([a-z])/g, (_, letter) => letter.toUpperCase())
@@ -63,13 +64,14 @@ export const GrammarsExtension = ({ loading }: GrammarsExtensionProps) => {
 }
 
 const createLLM = async () => {
-  const { provider, model, apiKeys } = await apiKeyDataStorage.get()
+  const { model, apiKeys } = await configStorage.get()
+
+  console.log(`using model ${model}`)
 
   return new LLM({
-    provider,
     model,
-    apiKey: apiKeys[provider],
-  })
+    apiKey: apiKeys[model],
+  } as LLMOptions)
 }
 
 class GrammarsExtensionComponent extends HTMLElement {
@@ -82,7 +84,7 @@ class GrammarsExtensionComponent extends HTMLElement {
     this.attachShadow({ mode: 'open' })
     this._onClick = this._onClick.bind(this)
     this.loading = false // Initialize loading state
-    addEventListener('click', this._onClick)
+    // addEventListener('click', this._onClick)
   }
 
   async connectedCallback() {
