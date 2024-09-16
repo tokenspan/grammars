@@ -1,11 +1,12 @@
 import OpenAI from 'openai'
-import type {
+import {
   BaseLLM,
   ChatCompletion,
   ChatCompletionCreateParams,
   ChatCompletionMessage,
   Choice,
   BaseLLMOptions,
+  ModelNotSupportedError,
 } from './common'
 import dayjs from 'dayjs'
 
@@ -28,7 +29,7 @@ export class OpenAILLM implements BaseLLM {
   async complete(options: ChatCompletionCreateParams<OpenAIModel>): Promise<ChatCompletion> {
     const model = options.model ?? this.options.model
     if (!model) {
-      throw new Error('Model not specified')
+      throw new ModelNotSupportedError(model)
     }
 
     const chatCompletion = await this.client.chat.completions.create({

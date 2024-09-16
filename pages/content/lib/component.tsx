@@ -2,8 +2,11 @@ import '@webcomponents/webcomponentsjs'
 import { createRoot, type Root } from 'react-dom/client'
 import { correctText } from '@extension/core'
 import { apiKeyDataStorage } from '@extension/storage'
+import type { LLMOptions } from '@extension/llm'
 import { LLM } from '@extension/llm'
 import tailwindcssOutput from '../dist/content-output.css?inline'
+import { useLLM, useStorage } from '@extension/shared'
+import { useEffect } from 'react'
 
 export const normalizeAttribute = (attribute: string) => {
   return attribute.replace(/-([a-z])/g, (_, letter) => letter.toUpperCase())
@@ -14,6 +17,12 @@ interface GrammarsExtensionProps {
 }
 
 export const GrammarsExtension = ({ loading }: GrammarsExtensionProps) => {
+  const apiKeyData = useStorage(apiKeyDataStorage)
+
+  useEffect(() => {
+    console.log('apiKeyData', apiKeyData)
+  }, [apiKeyData])
+
   return (
     <div id="grammars-wrapper" className="bg-[#87a330] rounded p-1 cursor-pointer">
       {loading ? (
@@ -65,11 +74,13 @@ export const GrammarsExtension = ({ loading }: GrammarsExtensionProps) => {
 const createLLM = async () => {
   const { provider, model, apiKeys } = await apiKeyDataStorage.get()
 
+  console.log(`using ${provider} with model ${model}`)
+
   return new LLM({
     provider,
     model,
     apiKey: apiKeys[provider],
-  })
+  } as LLMOptions)
 }
 
 class GrammarsExtensionComponent extends HTMLElement {
@@ -82,17 +93,17 @@ class GrammarsExtensionComponent extends HTMLElement {
     this.attachShadow({ mode: 'open' })
     this._onClick = this._onClick.bind(this)
     this.loading = false // Initialize loading state
-    addEventListener('click', this._onClick)
+    // addEventListener('click', this._onClick)
   }
 
   async connectedCallback() {
     const props = this.getPropsFromAttributes<GrammarsExtensionProps>()
-    this._llm = await createLLM()
+    // this._llm = await createLLM()
     this._renderComponent(props) // Initial render with props
   }
 
   disconnectedCallback() {
-    removeEventListener('click', this._onClick)
+    // removeEventListener('click', this._onClick)
   }
 
   private getPropsFromAttributes<T>(): T {
