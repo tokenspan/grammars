@@ -1,4 +1,4 @@
-import { LLM } from '@extension/llm'
+import type { LLM } from '@extension/llm'
 import { correctText, findDifferences } from '@extension/core'
 import { applyPatch } from '@lib/utils'
 

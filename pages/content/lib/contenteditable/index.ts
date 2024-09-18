@@ -1,7 +1,7 @@
 import { BaseContentEditable } from '@lib/contenteditable/types'
 import { SlackPage } from '@lib/contenteditable/slack'
 import { GmailPage } from '@lib/contenteditable/gmail'
-import { LLM } from '@extension/llm'
+import type { LLM } from '@extension/llm'
 
 export type SupportedHost = string
 

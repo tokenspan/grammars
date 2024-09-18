@@ -1,7 +1,6 @@
 import { describe, it } from 'vitest'
 import { findDifferences } from '@extension/core'
 import { HTMLToJSON, JSONToHTML } from 'html-to-json-parser'
-import { JSDOM } from 'jsdom'
 import { applyPatch } from '@lib/utils'
 
 describe('SlackPage', () => {

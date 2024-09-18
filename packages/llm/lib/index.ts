@@ -1,7 +1,5 @@
 import type { BaseLLM, ChatCompletion, ChatCompletionCreateParams } from './common'
-import type { OpenAILLMOptions } from './openai'
 import { OpenAILLM } from './openai'
-import type { AnthropicLLMOptions } from './anthropic'
 import { AnthropicLLM } from './anthropic'
 
 export * from './common'

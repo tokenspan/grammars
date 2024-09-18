@@ -66,8 +66,8 @@ export class TextNodeCursor {
     while (remaining > 0 && currentIndex < this.textNodes.length) {
       const textNode = this.textNodes[currentIndex]
       const text = textNode.data
-      let start = currentOffset
-      let end = Math.min(text.length, currentOffset + remaining)
+      const start = currentOffset
+      const end = Math.min(text.length, currentOffset + remaining)
       nodesToUpdate.push({ node: textNode, start, end })
       remaining -= end - start
       currentIndex++

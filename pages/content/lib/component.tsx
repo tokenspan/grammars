@@ -1,7 +1,8 @@
 import '@webcomponents/webcomponentsjs'
 import { createRoot, type Root } from 'react-dom/client'
 import tailwindcssOutput from '../dist/content-output.css?inline'
-import { FC, useMemo } from 'react'
+import type { FC} from 'react';
+import { useMemo } from 'react'
 import { ContentEditable } from '@lib/contenteditable'
 import { useLLM, useStorage } from '@extension/shared'
 import { configStorage } from '@extension/storage'
