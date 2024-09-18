@@ -1,17 +1,16 @@
 import './component'
-import { Website } from '@lib/websites'
+import { ContentEditable } from '@lib/contenteditable'
+import { LLM } from '@extension/llm'
+
+const llm = new LLM({
+  apiKey: '',
+  model: 'gpt-3.5-turbo',
+})
 
 export function findEditableElements() {
   // Slack
-  const website = new Website('app.slack.com')
-  const editableElements: HTMLElement[] = website.findEditableElements()
-
-  for (const element of editableElements) {
-    injectGrammarsButton(element)
-  }
-
-  console.log('editableElements', editableElements)
-  return editableElements.length > 0
+  const website = new ContentEditable('app.slack.com', llm)
+  return website.injectGrammarsButton()
 }
 
 export function loadEditableContent() {
@@ -22,19 +21,6 @@ export function loadEditableContent() {
     }
   }, 1000)
 }
-
-export function injectGrammarsButton(targetElement: HTMLElement) {
-  console.log('injected grammars button')
-  const grammarsExtension = document.createElement('grammars-extension')
-  grammarsExtension.style.height = '24px'
-  grammarsExtension.style.width = '24px'
-  // Slack
-  grammarsExtension.style.marginRight = '4px'
-  grammarsExtension.style.marginTop = '8px'
-  targetElement.appendChild(grammarsExtension)
-}
-
-export async function applyCorrection() {}
 
 export async function mount() {
   loadEditableContent()
