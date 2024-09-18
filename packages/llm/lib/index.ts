@@ -12,12 +12,12 @@ export class LLM implements BaseLLM {
   private readonly llm: BaseLLM
 
   constructor(options: LLMOptions) {
-    switch (options.provider) {
-      case 'openai':
+    switch (options.model) {
+      case 'gpt-3.5-turbo':
         console.log('using openai')
         this.llm = new OpenAILLM(options)
         break
-      case 'anthropic':
+      case 'claude-3-haiku-20240307':
         console.log('using anthropic')
         this.llm = new AnthropicLLM(options)
         break
