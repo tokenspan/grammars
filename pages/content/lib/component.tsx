@@ -30,12 +30,12 @@ export const GrammarsExtension: FC<GrammarsExtensionProps> = () => {
 
   return (
     <div id="grammars-wrapper" className="bg-[#87a330] rounded p-1 cursor-pointer">
-      <span
+      <button
         onClick={async () => {
           await website.applyCorrection()
         }}>
         G
-      </span>
+      </button>
     </div>
   )
 }
@@ -50,7 +50,7 @@ class GrammarsExtensionComponent extends HTMLElement {
 
   async connectedCallback() {
     const props = this.getPropsFromAttributes<GrammarsExtensionProps>()
-    this._renderComponent({ ...props, parentElement: this.shadowRoot?.parentElement }) // Initial render with props
+    this._renderComponent(props) // Initial render with props
   }
 
   disconnectedCallback() {}

@@ -27,7 +27,7 @@ export class LLM implements BaseLLM {
         this.llm = new AnthropicLLM({
           apiKey: options.apiKey,
           model: 'claude-3-haiku-20240307',
-          provider: 'anthropic'
+          provider: 'anthropic',
         })
         break
       default:

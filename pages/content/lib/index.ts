@@ -1,9 +1,15 @@
 import './component'
 import { ContentEditable } from '@lib/contenteditable'
+import { LLM } from '@extension/llm'
+
+const llm = new LLM({
+  apiKey: '',
+  model: 'gpt-3.5-turbo',
+})
 
 export function findEditableElements() {
   // Slack
-  const website = new ContentEditable('app.slack.com')
+  const website = new ContentEditable('app.slack.com', llm)
   return website.injectGrammarsButton()
 }
 
@@ -15,8 +21,6 @@ export function loadEditableContent() {
     }
   }, 1000)
 }
-
-export async function applyCorrection() {}
 
 export async function mount() {
   loadEditableContent()
