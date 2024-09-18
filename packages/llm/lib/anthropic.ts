@@ -32,11 +32,15 @@ export class AnthropicLLM implements BaseLLM {
       throw new ModelNotSupportedError(model)
     }
 
+    const messages:  Anthropic.MessageParam[] = options.messages.toReversed().map(message => ({
+      role: message.role === 'system' ? 'assistant' : 'user',
+      content: message.content,
+    }))
+
+    console.log('[grammars] anthropic messages', messages)
+
     const chatCompletion = await this.client.messages.create({
-      messages: options.messages.toReversed().map(message => ({
-        role: message.role === 'system' ? 'assistant' : 'user',
-        content: message.content,
-      })),
+      messages,
       model,
       temperature: options.temperature,
       max_tokens: options.max_tokens ?? 1000,
@@ -59,6 +63,8 @@ export class AnthropicLLM implements BaseLLM {
         return null
       })
       .filter(content => content !== null)
+
+    console.log('[grammars] anthropic choices', choices)
 
     return {
       choices,

@@ -32,13 +32,18 @@ export class OpenAILLM implements BaseLLM {
       throw new ModelNotSupportedError(model)
     }
 
+    const messages = options.messages
+    console.log('[grammars] openai messages', messages)
+
     const chatCompletion = await this.client.chat.completions.create({
-      messages: options.messages,
+      messages,
       model,
       temperature: options.temperature,
     })
 
     const choices = chatCompletion.choices
+
+    console.log('[grammars] openai choices', choices)
 
     return {
       choices,
