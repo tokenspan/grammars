@@ -19,7 +19,7 @@ export class LLM implements BaseLLM {
         this.llm = new OpenAILLM({
           apiKey: options.apiKey,
           model: 'gpt-3.5-turbo',
-          provider: 'openai'
+          provider: 'openai',
         })
         break
       case 'claude-3-haiku-20240307':

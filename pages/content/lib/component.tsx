@@ -15,7 +15,7 @@ interface GrammarsExtensionProps {
   parentElement?: HTMLElement | null
 }
 
-export const GrammarsExtension: FC<GrammarsExtensionProps> = ({ parentElement }) => {
+export const GrammarsExtension: FC<GrammarsExtensionProps> = () => {
   const configData = useStorage(configStorage)
 
   const model = configData.model
