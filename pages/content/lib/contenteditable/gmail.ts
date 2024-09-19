@@ -12,26 +12,28 @@ export class GmailPage extends BaseContentEditable {
   }
 
   getInnerElement(): HTMLElement | null {
-    throw new Error('Method not implemented.')
+    const elements = document.querySelectorAll("*[contenteditable='true']")
+    if (elements.length === 0) {
+      return null
+    }
+
+    return elements[0] as HTMLElement
   }
 
   getInnerHTML(): string | null {
-    throw new Error('Method not implemented.')
+    return this.getInnerElement()?.innerHTML ?? null
   }
 
   getInnerText(): string | null {
-    throw new Error('Method not implemented.')
-  }
-
-  getEditableContent<T>(): T {
-    throw new Error('Method not implemented.')
+    return this.getInnerElement()?.innerText ?? null
   }
 
   getComposerElements(): HTMLElement[] {
-    const elements = document.querySelectorAll("#\\:n0 > div")
+    const elements = document.querySelectorAll("*[contenteditable='true']")
     const allElements: HTMLElement[] = []
     for (const element of elements) {
-      allElements.push(element as HTMLElement)
+      const htmlElement = element as HTMLElement
+      allElements.push(htmlElement.parentElement as HTMLElement)
     }
 
     return allElements
@@ -41,7 +43,7 @@ export class GmailPage extends BaseContentEditable {
     const grammarsExtension = document.createElement('grammars-extension')
     grammarsExtension.style.position = 'absolute'
     grammarsExtension.style.right = '0px'
-    grammarsExtension.style.bottom = '8px'
+    grammarsExtension.style.bottom = '0px'
     targetElement.appendChild(grammarsExtension)
   }
 }

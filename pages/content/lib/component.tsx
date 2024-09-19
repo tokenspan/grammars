@@ -26,7 +26,7 @@ export const GrammarsExtension: FC<GrammarsExtensionProps> = () => {
     apiKey,
   })
 
-  const website = useMemo(() => new ContentEditable(configData.currentTabHost, llm), [configData.currentTabHost, llm])
+  const website = useMemo(() => new ContentEditable('mail.google.com', llm), [configData.currentTabHost, llm])
 
   return (
     <div id="grammars-wrapper" className="bg-[#87a330] rounded p-1 cursor-pointer">
@@ -55,14 +55,11 @@ class GrammarsExtensionComponent extends HTMLElement {
     this._renderComponent(props) // Initial render with props
   }
 
-  disconnectedCallback() {}
-
   private getPropsFromAttributes<T>(): T {
     const props: Record<string, string> = {}
 
-    for (let i = 0; i < this.attributes.length; i++) {
-      const attribute = this.attributes[i]
-      props[normalizeAttribute(attribute.name)] = attribute.value
+    for (const element of this.attributes) {
+      props[normalizeAttribute(element.name)] = element.value
     }
 
     return props as T
