@@ -20,7 +20,8 @@
     "jsx": "react-jsx",
     "lib": [
       "DOM",
-      "ESNext"
+      "ESNext",
+      "DOM.Iterable"
     ]
   }
 }
