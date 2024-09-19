@@ -4,9 +4,8 @@ export class GmailPage extends BaseContentEditable {
   findElements(): HTMLElement[] {
     const elements = document.querySelectorAll("*[contenteditable='true']")
     const allElements: HTMLElement[] = []
-    for (let i = 0; i < elements.length; i++) {
-      const element = elements[i] as HTMLElement
-      allElements.push(element)
+    for (const element of elements) {
+      allElements.push(element as HTMLElement)
     }
 
     return allElements
@@ -31,9 +30,8 @@ export class GmailPage extends BaseContentEditable {
   getComposerElements(): HTMLElement[] {
     const elements = document.querySelectorAll("#\\:n0 > div")
     const allElements: HTMLElement[] = []
-    for (let i = 0; i < elements.length; i++) {
-      const element = elements[i] as HTMLElement
-      allElements.push(element)
+    for (const element of elements) {
+      allElements.push(element as HTMLElement)
     }
 
     return allElements
