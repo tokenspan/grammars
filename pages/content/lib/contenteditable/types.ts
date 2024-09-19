@@ -45,7 +45,7 @@ export abstract class BaseContentEditable {
   }
 
   injectGrammarsButton(): boolean {
-    const elements = this.findElements()
+    const elements = this.getComposerElements()
 
     for (const element of elements) {
       this.createGrammarsButton(element)

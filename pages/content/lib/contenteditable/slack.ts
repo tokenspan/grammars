@@ -5,9 +5,8 @@ export class SlackPage extends BaseContentEditable {
     const allElements = document.getElementsByClassName('ql-container')
     const editableElements: HTMLElement[] = []
 
-    for (let i = 0; i < allElements.length; i++) {
-      const element = allElements[i] as HTMLElement
-      editableElements.push(element)
+    for (const element of allElements) {
+      editableElements.push(element as HTMLElement)
     }
 
     return editableElements
