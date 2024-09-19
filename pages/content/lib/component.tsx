@@ -31,10 +31,12 @@ export const GrammarsExtension: FC<GrammarsExtensionProps> = () => {
   return (
     <div id="grammars-wrapper" className="bg-[#87a330] rounded p-1 cursor-pointer">
       <button
+        style={{ height: '24px', width: '24px' }}
+        className="flex items-center justify-center"
         onClick={async () => {
           await website.applyCorrection()
         }}>
-        G
+        <span>G</span>
       </button>
     </div>
   )

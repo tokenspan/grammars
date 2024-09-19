@@ -25,13 +25,20 @@ export class SlackPage extends BaseContentEditable {
     return this.getInnerElement()?.innerText ?? null
   }
 
+  getComposerElements(): HTMLElement[] {
+    return this.findElements()
+  }
+
   createGrammarsButton(targetElement: HTMLElement) {
     const grammarsExtension = document.createElement('grammars-extension')
-    grammarsExtension.style.height = '24px'
-    grammarsExtension.style.width = '24px'
+    // grammarsExtension.style.height = '24px'
+    // grammarsExtension.style.width = '24px'
+    grammarsExtension.style.position = 'absolute'
+    grammarsExtension.style.right = '6px'
+    grammarsExtension.style.bottom = '6px'
     // Slack
-    grammarsExtension.style.marginRight = '4px'
-    grammarsExtension.style.marginTop = '8px'
+    // grammarsExtension.style.marginRight = '4px'
+    // grammarsExtension.style.marginTop = '8px'
     targetElement.appendChild(grammarsExtension)
   }
 }

@@ -1,6 +1,17 @@
 import { BaseContentEditable } from '@lib/contenteditable/types'
 
 export class GmailPage extends BaseContentEditable {
+  findElements(): HTMLElement[] {
+    const elements = document.querySelectorAll("*[contenteditable='true']")
+    const allElements: HTMLElement[] = []
+    for (let i = 0; i < elements.length; i++) {
+      const element = elements[i] as HTMLElement
+      allElements.push(element)
+    }
+
+    return allElements
+  }
+
   getInnerElement(): HTMLElement | null {
     throw new Error('Method not implemented.')
   }
@@ -13,8 +24,12 @@ export class GmailPage extends BaseContentEditable {
     throw new Error('Method not implemented.')
   }
 
-  findElements(): HTMLElement[] {
-    const elements = document.querySelectorAll("*[contenteditable='true']")
+  getEditableContent<T>(): T {
+    throw new Error('Method not implemented.')
+  }
+
+  getComposerElements(): HTMLElement[] {
+    const elements = document.querySelectorAll("#\\:n0 > div")
     const allElements: HTMLElement[] = []
     for (let i = 0; i < elements.length; i++) {
       const element = elements[i] as HTMLElement
@@ -24,17 +39,11 @@ export class GmailPage extends BaseContentEditable {
     return allElements
   }
 
-  getEditableContent<T>(): T {
-    throw new Error('Method not implemented.')
-  }
-
   createGrammarsButton(targetElement: HTMLElement) {
     const grammarsExtension = document.createElement('grammars-extension')
-    grammarsExtension.style.height = '24px'
-    grammarsExtension.style.width = '24px'
-    // Slack
-    grammarsExtension.style.marginRight = '5px'
-    grammarsExtension.style.marginTop = '8px'
+    grammarsExtension.style.position = 'absolute'
+    grammarsExtension.style.right = '0px'
+    grammarsExtension.style.bottom = '8px'
     targetElement.appendChild(grammarsExtension)
   }
 }

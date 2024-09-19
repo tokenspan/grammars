@@ -11,6 +11,7 @@ export abstract class BaseContentEditable {
   abstract getInnerElement(): HTMLElement | null
   abstract getInnerHTML(): string | null
   abstract getInnerText(): string | null
+  abstract getComposerElements(): HTMLElement[]
 
   async applyCorrection(): Promise<void> {
     const content = this.getInnerText()
