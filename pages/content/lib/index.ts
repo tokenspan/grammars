@@ -9,7 +9,7 @@ const llm = new LLM({
 
 export function findEditableElements() {
   // Slack
-  const website = new ContentEditable('app.slack.com', llm)
+  const website = new ContentEditable('mail.google.com', llm)
   return website.injectGrammarsButton()
 }
 

@@ -40,6 +40,10 @@ export class ContentEditable extends BaseContentEditable {
     return this.page.getInnerText()
   }
 
+  getComposerElements(): HTMLElement[] {
+    return this.page.getComposerElements()
+  }
+
   async applyCorrection(): Promise<void> {
     return this.page.applyCorrection()
   }
